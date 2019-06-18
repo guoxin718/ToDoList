@@ -69,7 +69,7 @@ namespace ToDoList
             imgSrc.Save("new.png", System.Drawing.Imaging.ImageFormat.Png);
 
             //SystemParametersInfo(20, 0, "D:\\dev_vs\\ToDoList\\new.jpg", 0x2);
-            string currentImg = System.Environment.CurrentDirectory + "new.png";
+            string currentImg = System.Environment.CurrentDirectory +"\\new.png";
             SystemParametersInfo(20, 0, currentImg, 0x2);
         }
 
