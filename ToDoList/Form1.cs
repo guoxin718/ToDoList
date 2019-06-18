@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,19 +18,21 @@ namespace ToDoList
 		public Form1()
 		{
 			InitializeComponent();
-			textBox1.Text = File.ReadAllText(@"D:\\dev_vs\\ToDoList\\1.txt", Encoding.UTF8);
-			textBox2.Text = File.ReadAllText(@"D:\\dev_vs\\ToDoList\\2.txt", Encoding.UTF8);
-			textBox3.Text = File.ReadAllText(@"D:\\dev_vs\\ToDoList\\3.txt", Encoding.UTF8);
-			textBox4.Text = File.ReadAllText(@"D:\\dev_vs\\ToDoList\\4.txt", Encoding.UTF8);
+            //textBox1.Text = File.ReadAllText(@"D:\\dev_vs\\ToDoList\\1.txt", Encoding.UTF8);
+            textBox1.Text = File.ReadAllText(@"1.txt", Encoding.UTF8);
+            textBox2.Text = File.ReadAllText(@"2.txt", Encoding.UTF8);
+			textBox3.Text = File.ReadAllText(@"3.txt", Encoding.UTF8);
+			textBox4.Text = File.ReadAllText(@"4.txt", Encoding.UTF8);
 		}
 
 		public void WriteToFile()
 		{
-			//如果文件不存在，则创建；存在则覆盖
-			System.IO.File.WriteAllText(@"D:\\dev_vs\\ToDoList\\1.txt", textBox1.Text, Encoding.UTF8);
-			System.IO.File.WriteAllText(@"D:\\dev_vs\\ToDoList\\2.txt", textBox2.Text, Encoding.UTF8);
-			System.IO.File.WriteAllText(@"D:\\dev_vs\\ToDoList\\3.txt", textBox3.Text, Encoding.UTF8);
-			System.IO.File.WriteAllText(@"D:\\dev_vs\\ToDoList\\4.txt", textBox4.Text, Encoding.UTF8);
+            //如果文件不存在，则创建；存在则覆盖
+            //System.IO.File.WriteAllText(@"D:\\dev_vs\\ToDoList\\1.txt", textBox1.Text, Encoding.UTF8);
+            System.IO.File.WriteAllText(@"1.txt", textBox1.Text, Encoding.UTF8);
+            System.IO.File.WriteAllText(@"2.txt", textBox2.Text, Encoding.UTF8);
+			System.IO.File.WriteAllText(@"3.txt", textBox3.Text, Encoding.UTF8);
+			System.IO.File.WriteAllText(@"4.txt", textBox4.Text, Encoding.UTF8);
 		}
 
 		[DllImport("user32.dll", EntryPoint = "SystemParametersInfo")]
@@ -44,9 +46,10 @@ namespace ToDoList
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
             WriteToFile();
-            System.Drawing.Image imgSrc = System.Drawing.Image.FromFile("D:\\dev_vs\\ToDoList\\template1.jpg");
+            //System.Drawing.Image imgSrc = System.Drawing.Image.FromFile("D:\\dev_vs\\ToDoList\\template1.jpg");
+            System.Drawing.Image imgSrc = System.Drawing.Image.FromFile("template1.jpg");
 
-			using (Graphics g = Graphics.FromImage(imgSrc))
+            using (Graphics g = Graphics.FromImage(imgSrc))
 			{
 				g.DrawImage(imgSrc, 0, 0, imgSrc.Width, imgSrc.Height);
 				using (Font f = new Font("微软雅黑", 30))
@@ -62,10 +65,13 @@ namespace ToDoList
 				}
 			}
 
-			imgSrc.Save("D:\\dev_vs\\ToDoList\\new.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            //imgSrc.Save("D:\\dev_vs\\ToDoList\\new.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            imgSrc.Save("new.png", System.Drawing.Imaging.ImageFormat.Png);
 
-			SystemParametersInfo(20, 0, "D:\\dev_vs\\ToDoList\\new.jpg", 0x2);
-		}
+            //SystemParametersInfo(20, 0, "D:\\dev_vs\\ToDoList\\new.jpg", 0x2);
+            string currentImg = System.Environment.CurrentDirectory + "new.png";
+            SystemParametersInfo(20, 0, currentImg, 0x2);
+        }
 
         private void NotifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -108,17 +114,6 @@ namespace ToDoList
             e.Cancel = true;//取消窗体的关闭事件
             this.WindowState = FormWindowState.Minimized;//使当前窗体最小化
             notifyIcon1.Visible = true;//使最下滑的图标可见
-
-            //if (MessageBox.Show("是否确认退出程序？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-            //{
-            //    // 关闭所有的线程
-            //    this.Dispose();
-            //    this.Close();
-            //}
-            //else
-            //{
-            //    e.Cancel = true;
-            //}
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
