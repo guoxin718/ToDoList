@@ -100,13 +100,14 @@ namespace ToDoList
             }
             else if (e.Button == MouseButtons.Right)
             {
-                if (MessageBox.Show("是否需要关闭程序？", "提示:", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)//出错提示
-                {
-                    //关闭窗口
-                    DialogResult = DialogResult.No;
-                    Dispose();
-                    Close();
-                }
+                
+                //if (MessageBox.Show("是否需要关闭程序？", "提示:", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)//出错提示
+                //{
+                //    //关闭窗口
+                //    DialogResult = DialogResult.No;
+                //    Dispose();
+                //    Close();
+                //}
             }
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -126,6 +127,12 @@ namespace ToDoList
                 //图标显示在托盘区
                 notifyIcon1.Visible = true;
             }
+        }
+
+        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Dispose();
+            Close();
         }
     }
 }

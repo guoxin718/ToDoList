@@ -1,5 +1,4 @@
-用番茄工作法提升工作效率:
-具体原理和实现过程，请参考：
+用番茄工作法提升工作效率，具体原理和实现过程：
 
 用番茄工作法提升工作效率 （一）关于任务清单（含工具代码分享）  
 https://www.cnblogs.com/siweihz/p/11043251.html
@@ -9,7 +8,11 @@ https://www.cnblogs.com/siweihz/p/11043251.html
 https://www.cnblogs.com/siweihz/p/11038407.html
 
 
+用番茄工作法提升工作效率 （三）工作任务的管理（系列完结篇）
+https://www.cnblogs.com/siweihz/p/11044494.html
 
+
+程序的实现过程：
 
 （1）将一天的任务按照“重要”，“紧急”程度进行区分。程序读取4个文件“1.txt”，“2.txt”，“3.txt”，“4.txt”，分别存放上述4种工作清单。
 
