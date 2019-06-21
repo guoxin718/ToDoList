@@ -15,7 +15,8 @@ namespace ToDoList
 {
 	public partial class Form1 : Form
 	{
-		public Form1()
+        private StringBuilder wallPaperPath = new StringBuilder(200);
+        public Form1()
 		{
 			InitializeComponent();
             //textBox1.Text = File.ReadAllText(@"D:\\dev_vs\\ToDoList\\1.txt", Encoding.UTF8);
@@ -23,7 +24,20 @@ namespace ToDoList
             textBox2.Text = File.ReadAllText(@"2.txt", Encoding.UTF8);
 			textBox3.Text = File.ReadAllText(@"3.txt", Encoding.UTF8);
 			textBox4.Text = File.ReadAllText(@"4.txt", Encoding.UTF8);
-		}
+
+
+
+            const int SPI_GETDESKWALLPAPER = 0x0073;
+            //StringBuilder wallPaperPath = new StringBuilder(200);
+            if (!SystemParametersInfo(SPI_GETDESKWALLPAPER, 200, wallPaperPath, 0))
+            {
+                MessageBox.Show("无法获取桌面背景的图片，请重试！");
+            }
+
+            //程序启动的时候，加载桌面背景
+            string currentImg = System.Environment.CurrentDirectory + "\\new.png";
+            SystemParametersInfo(20, 0, currentImg, 0x2);
+        }
 
 		public void WriteToFile()
 		{
@@ -43,11 +57,19 @@ namespace ToDoList
 		int fuWinIni
 		);
 
-		private void BtnSave_Click(object sender, EventArgs e)
-		{
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool SystemParametersInfo(uint uAction, uint uParam, StringBuilder lpvParam, uint init);
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
             WriteToFile();
+
+            //获取原背景图片的路径
             //System.Drawing.Image imgSrc = System.Drawing.Image.FromFile("D:\\dev_vs\\ToDoList\\template1.jpg");
+            //SystemParametersInfo(20, 0, "D:\\dev_vs\\ToDoList\\new.jpg", 0x2);
+
             System.Drawing.Image imgSrc = System.Drawing.Image.FromFile("template1.jpg");
+            //System.Drawing.Image imgSrc = System.Drawing.Image.FromFile(wallPaperPath.ToString());
 
             using (Graphics g = Graphics.FromImage(imgSrc))
 			{
@@ -68,9 +90,9 @@ namespace ToDoList
             //imgSrc.Save("D:\\dev_vs\\ToDoList\\new.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
             imgSrc.Save("new.png", System.Drawing.Imaging.ImageFormat.Png);
 
-            //SystemParametersInfo(20, 0, "D:\\dev_vs\\ToDoList\\new.jpg", 0x2);
-            string currentImg = System.Environment.CurrentDirectory +"\\new.png";
+            string currentImg = System.Environment.CurrentDirectory + "\\new.png";
             SystemParametersInfo(20, 0, currentImg, 0x2);
+
         }
 
         private void NotifyIcon1_MouseClick(object sender, MouseEventArgs e)
@@ -131,6 +153,8 @@ namespace ToDoList
 
         private void ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            ////程序退出的时候，还原桌面背景
+            SystemParametersInfo(20, 0, wallPaperPath.ToString(), 0x2);
             Dispose();
             Close();
         }
