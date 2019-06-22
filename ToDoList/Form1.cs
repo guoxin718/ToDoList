@@ -8,13 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ToDoList
 {
-	public partial class Form1 : Form
-	{
+	public partial class Form1 : System.Windows.Forms.Form
+    {
         private StringBuilder wallPaperPath = new StringBuilder(200);
         public Form1()
 		{
@@ -31,7 +30,7 @@ namespace ToDoList
             //StringBuilder wallPaperPath = new StringBuilder(200);
             if (!SystemParametersInfo(SPI_GETDESKWALLPAPER, 200, wallPaperPath, 0))
             {
-                MessageBox.Show("无法获取桌面背景的图片，请重试！");
+                System.Windows.Forms.MessageBox.Show("无法获取桌面背景的图片，请重试！");
             }
 
             //程序启动的时候，加载桌面背景
@@ -157,6 +156,34 @@ namespace ToDoList
             SystemParametersInfo(20, 0, wallPaperPath.ToString(), 0x2);
             Dispose();
             Close();
+        }
+
+        private void BtnSuper_Click(object sender, EventArgs e)
+        {
+            if(wallPaperPath==null || wallPaperPath.ToString().Length <= 0)
+            {
+                MessageBox.Show("背景为纯色，请先选择一个背景图片！");
+                return;
+            }
+            //获取原桌面背景的图片，比较图片的大小和分辨率的长和宽
+            //如果相同，则直接基于该图片生成新的桌面背景；不通，则先生成一个分辨率大小的背景图片，然后在写入文字
+
+            //获取全屏下屏幕分辩率
+
+
+            //int width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+            //int height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+            Size size = GraphicUtil.DESKTOP;
+            //MessageBox.Show("分辨率为："+size.Width +"*"+ size.Height);
+
+            string newImg = System.Environment.CurrentDirectory + "\\newPic.jpg";
+            string attachImg = System.Environment.CurrentDirectory + "\\attachPic.jpg";
+            GraphicUtil.NewImage(wallPaperPath.ToString(), attachImg, newImg,size.Width,size.Height,textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+
+            SystemParametersInfo(20, 0, newImg, 0x2);
+            //去掉任务栏(工作区间)的屏幕宽高为:
+            //SystemParameters.WorkArea.Width
+            //SystemParameters.WorkArea.Height
         }
     }
 }

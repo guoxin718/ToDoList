@@ -36,12 +36,13 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.btnDesktopBk = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSuper = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,7 +84,7 @@
             // 
             // btnDesktopBk
             // 
-            this.btnDesktopBk.Location = new System.Drawing.Point(562, 300);
+            this.btnDesktopBk.Location = new System.Drawing.Point(516, 302);
             this.btnDesktopBk.Name = "btnDesktopBk";
             this.btnDesktopBk.Size = new System.Drawing.Size(75, 33);
             this.btnDesktopBk.TabIndex = 1;
@@ -98,6 +99,21 @@
             this.notifyIcon1.Text = "鼠标右键退出";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon1_MouseClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(109, 28);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(108, 24);
+            this.toolStripMenuItem2.Text = "退出";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItem2_Click);
             // 
             // label1
             // 
@@ -135,26 +151,22 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "长期闲置";
             // 
-            // contextMenuStrip1
+            // btnSuper
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(109, 28);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(108, 24);
-            this.toolStripMenuItem2.Text = "退出";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItem2_Click);
+            this.btnSuper.Location = new System.Drawing.Point(597, 302);
+            this.btnSuper.Name = "btnSuper";
+            this.btnSuper.Size = new System.Drawing.Size(75, 33);
+            this.btnSuper.TabIndex = 7;
+            this.btnSuper.Text = "高级";
+            this.btnSuper.UseVisualStyleBackColor = true;
+            this.btnSuper.Click += new System.EventHandler(this.BtnSuper_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1209, 652);
+            this.Controls.Add(this.btnSuper);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -188,6 +200,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.Button btnSuper;
     }
 }
 
