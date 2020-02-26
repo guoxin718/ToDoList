@@ -15,6 +15,24 @@ namespace ToDoList
 	public partial class Form1 : System.Windows.Forms.Form
     {
         private StringBuilder wallPaperPath = new StringBuilder(200);
+
+        /// <summary>
+        /// 操作系统关闭时，关闭应用程序
+        /// </summary>
+        /// <param name="m">截获系统消息</param>
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case 0x0011://WM_QUERYENDSESSION
+                    m.Result = (IntPtr)1;
+                    break;
+                default:
+                    base.WndProc(ref m);
+                    break;
+            }
+        }
+
         public Form1()
 		{
 			InitializeComponent();
@@ -160,7 +178,8 @@ namespace ToDoList
 
         private void BtnSuper_Click(object sender, EventArgs e)
         {
-            if(wallPaperPath==null || wallPaperPath.ToString().Length <= 0)
+            WriteToFile();
+            if (wallPaperPath==null || wallPaperPath.ToString().Length <= 0)
             {
                 MessageBox.Show("背景为纯色，请先选择一个背景图片！");
                 return;
